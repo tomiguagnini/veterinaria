@@ -1,13 +1,13 @@
-import { Int32 } from "mongodb"
-import {Schema, model} from "mongoose"
+import mongoose from "mongoose"
 import bcrypt from "bcryptjs"
 
-const UserSchema = new Schema({
+const UserSchema = mongoose.Schema({
     name:{ type: String,required: true},
+    lastname:{type: String, required: true},
     email:{ type: String,required: true},
     password:{ type: String,required: true},
     token:{ type: String,required: true},
-    phone:{ type: Int32,required: false},
+    phone:{ type: Number,required: false},
     confirm:{ type: Boolean,required: false},
 
 })
@@ -21,4 +21,4 @@ UserSchema.methods.matchPassword = async pass => {
     return await bcrypt.compare(pass, this.password)
 }
 
-module.exports = model('User',UserSchema)
+export default mongoose.model('User', UserSchema);

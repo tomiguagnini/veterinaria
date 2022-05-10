@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
+const uri = process.env.MONGO_DB_URI|| "mongodb+srv://admin:guagnini@cluster0.nfono.mongodb.net/veterinaria?retryWrites=true&w=majority";
 
-const uri = "mongodb+srv://admin:guagnini@cluster0.nfono.mongodb.net/veterinaria?retryWrites=true&w=majority"
 const params = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
