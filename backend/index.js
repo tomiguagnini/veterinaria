@@ -1,16 +1,11 @@
-import  express  from "express";
-import "./database.js"
-import userRoutes from "./routes/users.js"
+import app from "./src/app.js"
+import "./src/config/database.js"
+
+const { API_PORT } = process.env;
+
+const port = process.env.PORT || API_PORT;
 
 
-const app = express()
-const port = process.env.PORT || 5000;
 
-//middleware
-app.use(express.json());
-app.use("/api",userRoutes);
+app.listen(port,()=>console.log("listen on port", port))
 
-
-app.listen(port)
-
-app.get('/',(req,res)=> res.send("servidor veterinaria"))

@@ -1,6 +1,45 @@
-//import { LockClosedIcon } from '@heroicons/react/solid'
+import { useState } from "react"
+const URI = 'http://localhost:5000/api/login';
+
+
 
 export default function Login() {
+  const [email, setEmail]=useState({field:'',validate:false})
+  const [password, setPassword]= useState({field:'',validate:false})
+  const OnChange = (e)=>{
+    setEmail({field:e.target.value})
+  }
+  const OnChangePassword = (e)=>{
+    setPassword({field:e.target.value})
+  }
+  async function postData(url='',data = {}){
+    
+    const response = await fetch(url,{
+      method: 'POST',
+      mode:'no-cors',
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers:{
+        'Content-Type':'application/json'
+      },
+      redirect: 'follow', // manual, *follow, error
+      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body:JSON.stringify(data)
+    })
+
+    return response.json()
+  }
+
+  const OnChangeButton = ()=>{
+    postData(URI,{
+      email:'admiin@admin.com',
+      password:'admin123'
+    }).then(data =>{ console.log(data)})
+  }
+
+  
+
+
   return (
     <>
       {/*
@@ -36,6 +75,8 @@ export default function Login() {
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Email address"
+                  value={email.field}
+                  onChange={OnChange}
                 />
               </div>
               <div>
@@ -50,6 +91,8 @@ export default function Login() {
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Password"
+                  value={password.field}
+                  onChange={OnChangePassword}
                 />
               </div>
             </div>
@@ -71,8 +114,9 @@ export default function Login() {
 
             <div>
               <button
-                type="submit"
+                type="button"
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                onClick={OnChangeButton}
               >
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3">
 
