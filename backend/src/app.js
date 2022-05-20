@@ -9,9 +9,9 @@ dotenv.config()
 const app = express()
 
 app.use(express.json());
-app.use("/api",userRoutes);
+app.use("/api",headers,userRoutes);
 app.use(cors());
-app.use(headers);
+
 
 app.get('/',auth,(req,res)=> res.send("Servidor veterinaria"))
 

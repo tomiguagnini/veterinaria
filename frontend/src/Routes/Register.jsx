@@ -1,11 +1,19 @@
 import React from 'react';
+import { useState } from 'react';
 
 const Register = () => {
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [phone, setPhone] = useState('');
+
+
     return (
         <div>
         
 
-        <div className='container mx-20  mt-10 '>
+        <div className='container mx-auto  mt-10 '>
             <h2 className='text-xl'>Register</h2>
             <div className="mt-5 md:mt-0 md:col-span-2">
                 <form action="#" method="POST">
@@ -63,7 +71,7 @@ const Register = () => {
                                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     />
                                 </div>
-                                <button type="submit"
+                                <button type="button"
                                         className="border-stone-700 bg-indigo-700 rounded-md objet-right">Enviar</button>
                             </div>
                         </div>

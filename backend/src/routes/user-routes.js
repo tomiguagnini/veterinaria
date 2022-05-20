@@ -89,6 +89,9 @@ router.post("/login",async (req,res)=>{
     }
 })
 
+router.post('/test',(req,res)=>{
+   return res.status(200).json({msg:'ok'})
+})
 
 
 

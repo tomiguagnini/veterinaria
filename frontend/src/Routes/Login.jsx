@@ -1,4 +1,5 @@
 import { useState } from "react"
+import axios from 'axios'
 const URI = 'http://localhost:5000/api/login';
 
 
@@ -12,29 +13,29 @@ export default function Login() {
   const OnChangePassword = (e)=>{
     setPassword({field:e.target.value})
   }
-  async function postData(url='',data = {}){
-    
-    const response = await fetch(url,{
-      method: 'POST',
-      mode:'no-cors',
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers:{
-        'Content-Type':'application/json'
-      },
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body:JSON.stringify(data)
-    })
+  
 
-    return response.json()
-  }
+    
+  
 
   const OnChangeButton = ()=>{
-    postData(URI,{
-      email:'admiin@admin.com',
-      password:'admin123'
-    }).then(data =>{ console.log(data)})
+    axios({
+      method: 'post',
+      url: URI,
+      data: {
+        email:email.field,
+        password:password.field,
+      }
+    })
+    .then(function (response) {
+      if(response.status == 200){
+        window.location.href = URI + '/panel';
+      }
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   
