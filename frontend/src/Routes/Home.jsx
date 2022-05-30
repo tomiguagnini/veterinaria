@@ -1,9 +1,27 @@
 import React from 'react';
 
+
 const Home = () => {
     return (
         <div>
-            <h1>Veterinaria</h1>
+            <nav>
+                <div className='flex flex-row justify-between md:justify-end items-center'>
+                    <a className='p-1 bg-rose-500 hover:bg-rose-400 text-white rounded-md m-3'
+                    href='/login'>
+                        Iniciar Sesion
+                    </a>
+                    <a className='p-1 bg-rose-500 hover:bg-rose-400 text-white rounded-md m-3 '
+                    href="/register">
+                        Registrarse
+                    </a>
+                </div>
+                
+            </nav>
+            <div className='h-96 flex flex-col justify-center items-center'>
+                <h1 className='text-rose-700 text-6xl font-extra-bold text-center text-slate-900 flex'>Veterinaria</h1>
+
+            </div>
+
         </div>
     );
 }

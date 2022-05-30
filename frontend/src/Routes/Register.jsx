@@ -1,78 +1,103 @@
 import React from 'react';
 import { useState } from 'react';
+import Input from '../Components/Input';
+import { ValidateEmail } from '../helpers/validate';
+import axios from 'axios';
+const URI = 'http://localhost:5000/api';
 
-const Register = () => {
+const Register = () => { 
+    
+    const [name, setName] = useState({value:'',validate:''});
+    const [lastname, setLastname] = useState({value:'',validate:''});
+    const [email, setEmail] = useState({value:'',validate:''});
+    const [password, setPassword] = useState({value:'',validate:''});
+    const [phone, setPhone] = useState({value:'',validate:''});
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [phone, setPhone] = useState('');
+    const PostData = ()=>{
+        axios({
+            method: 'post',
+            url: URI + "/register",
+            data: {
+                name:name.value,
+                lastname:lastname.value,
+                email:email.value,
+                password:password.value,
+                phone:phone.value,
+            }
+          }).then(response => console.log(response))
+    }
 
+
+    const verificarCampos = ()=>{
+        if( name.validate && 
+            lastname.validate &&
+            email.validate &&
+            password.validate) PostData()
+    }
+    const setNameState = (e)=>{
+        const aux = {value: e.target.value} 
+        if(e.target.value.length >= 2 ){
+            aux.validate = true;
+        }else
+            aux.validate = false;
+            aux.err = 'Incorrect name'
+        setName(aux)
+    }
+    const setLastNameState = (e)=>{
+        const aux = {value: e.target.value} 
+        if(e.target.value.length >= 2 ){
+            aux.validate = true;
+        }else
+            aux.validate = false;
+            aux.err = 'Incorrect name'
+        setLastname(aux)
+    }
+
+    const setEmailStatus =(e)=>{
+        const aux = {value: e.target.value} 
+        if (ValidateEmail(e.target.value)){
+            aux.validate = true
+        }else
+            aux.validate = false
+            aux.err = 'Incorrect email'
+        setEmail(aux)
+    }
+    const setPasswordState = (e)=>{
+        const aux = {value: e.target.value} 
+        if (e.target.value.length >= 2 ){
+            aux.validate = true
+        }else
+            aux.validate = false
+            aux.err = 'Incorrect password'
+        setPassword(aux)
+    }
 
     return (
         <div>
-        
-
         <div className='container mx-auto  mt-10 '>
-            <h2 className='text-xl'>Register</h2>
-            <div className="mt-5 md:mt-0 md:col-span-2">
-                <form action="#" method="POST">
-                    <div className="shadow overflow-hidden sm:rounded-md">
-                        <div className="px-4 py-5 bg-white sm:p-6">
-                            <div className="grid grid-cols-6 gap-6">
-                                <div className="col-span-6 sm:col-span-3">
-                                    <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                                        First name
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="first-name"
-                                        id="first-name"
-                                        autoComplete="given-name"
-                                        className="mt-1 focus:ring-yellow-500 focus:border-yellow-500 block w-full shadow-xl sm:text-sm border-red-500 rounded-md"
-                                    />
-                                </div>
+            <h2 className='mt-6 text-center text-3xl font-extrabold text-slate-900'>Register</h2>
+            <div className="mt-5 grid place-content-center">
+                <form >
+                    <div className="shadow bg-slate-300 overflow-hidden rounded ">
+                        <div className="p-6 sm:p-12 md:w-full">
+                            <div className="">
+                                <Input label="First Name" type="text" value={name.value} onChange={setNameState} msgErr={name.validate?'':name.err} max="30"/>
 
-                                <div className="col-span-6 sm:col-span-3">
-                                    <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
-                                        Last name
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="last-name"
-                                        id="last-name"
-                                        autoComplete="family-name"
-                                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                    />
-                                </div>
+                                <Input label="Last Name" type="text" value={lastname.value} onChange={setLastNameState} max="30"/>
 
-                                <div className="col-span-6 sm:col-span-4">
-                                    <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
-                                        Email address
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="email-address"
-                                        id="email-address"
-                                        autoComplete="email"
-                                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                    />
-                                </div>
+                                <Input label="Email" type="text" value={email.value} onChange={setEmailStatus} msgErr={email.validate?'':email.err}/>
 
-                                <div className="col-span-6 sm:col-span-3">
-                                    <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
-                                        Phone
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="last-name"
-                                        id="last-name"
-                                        autoComplete="family-name"
-                                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                    />
-                                </div>
+                                <Input label="Password" type="password" value={password.value} onChange={setPasswordState} msgErr={password.validate?'':password.err}/>   
+
+                                <Input label="Phone" type="text" value={phone.value} onChange={setPhone}/>
+
+                                
                                 <button type="button"
-                                        className="border-stone-700 bg-indigo-700 rounded-md objet-right">Enviar</button>
+                                        className="text-white bg-rose-700 hover:bg-rose-600 rounded-md objet-right w-72 h-8"
+                                        onClick={verificarCampos}
+                                        >
+                                        Enviar
+                                        </button>
                             </div>
                         </div>
                     </div>
