@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/api",headers,userRoutes);
-app.use("/api",headers,patientsRoutes);
+app.use("/api",auth,headers,patientsRoutes);
 
 
 app.get('/',auth,(req,res)=> res.send("Servidor veterinaria"))

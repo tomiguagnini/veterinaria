@@ -42,7 +42,10 @@ const Dashboard = () => {
                 symptom,
                 userId: user.id
             },
-            config
+            headers: {
+                "x-access-token": user.token,
+                "Content-Type": "application/json"
+            }
         })
             .then(response => {
                 if (response.status === 200){
@@ -141,11 +144,11 @@ const Dashboard = () => {
                     <p className='text-center text-sm p-2'>anade tus pacientes y administralos</p>
 
                     <form className='bg-slate-400 shadow-2xl p-5 rounded-md' onSubmit={addPatients}>
-                        <Input id={1} label='Nombre de la mascota' onChange={handlePatietnsChange}></Input>
-                        <Input id={2} label='Nombred del propietario' onChange={handlePatietnsChange}> </Input>
-                        <Input id={3} label='Email del propietario' onChange={handlePatietnsChange}> </Input>
-                        <Input id={4} label='Fecha Alta' type='date' onChange={handlePatietnsChange}> </Input>
-                        <Input id={5} label='Sintomas' onChange={handlePatietnsChange}> </Input>
+                        <Input label='Nombre de la mascota'   value={namePatient} onChange={handlePatietnsChange}> </Input>
+                        <Input label='Nombred del propietario'value={ownerName}   onChange={handlePatietnsChange}> </Input>
+                        <Input label='Email del propietario'  value={ownerEmail}  onChange={handlePatietnsChange}> </Input>
+                        <Input label='Fecha Alta' type='date' value={date}        onChange={handlePatietnsChange}> </Input>
+                        <Input label='Sintomas'               value={symptom}     onChange={handlePatietnsChange}> </Input>
                         <button className='bg-rose-400 p-2 rounded w-full' type='submit'  >Enviar</button>
 
                     </form>
