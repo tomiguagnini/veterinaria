@@ -101,7 +101,6 @@ const Dashboard = () => {
     
     useEffect(() => {
         getPatients()
-
     }, [user]);
 
 
@@ -121,6 +120,11 @@ const Dashboard = () => {
 
 
     }
+    const closeSession = ()=>{
+        window.localStorage.removeItem('USER');
+        window.location.href = '/login'
+
+    }
 
 
 
@@ -132,7 +136,7 @@ const Dashboard = () => {
                 <nav className='flex justify-around p-5 list-none'>
                     <a className='px-5 cursor-pointer hover:decoration-solid hover:text-rose-800'>Pacientes</a>
                     <li className='px-5 cursor-pointer hover:decoration-solid hover:text-rose-800'>Perfil</li>
-                    <a href='/' className='px-5 cursor-pointer hover:decoration-solid hover:text-rose-800'>Cerrar session</a>
+                    <a  className='px-5 cursor-pointer hover:decoration-solid hover:text-rose-800' onClick={closeSession}>Cerrar session</a>
                 </nav>
             </div>
 

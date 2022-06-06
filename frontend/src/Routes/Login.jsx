@@ -1,5 +1,6 @@
 import { useState } from "react"
 import axios from 'axios'
+import { useEffect } from "react";
 
 
 const URI = 'http://localhost:5000/api';
@@ -18,7 +19,12 @@ export default function Login() {
   }
 
 
-
+  useEffect(() => {
+    const user = window.localStorage.getItem('USER')
+    if(user){
+      window.location.href = '/dashboard'
+    }
+  }, []);
 
 
   const sendCredentials = (e) => {
@@ -39,7 +45,7 @@ export default function Login() {
           token: response.data.token,
         }
         window.localStorage.setItem("USER", JSON.stringify(user))
-        window.location.href = HOST + '/panel';
+        window.location.href = HOST + '/dashboard';
       }
       console.log(response.data);
     })
