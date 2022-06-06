@@ -1,14 +1,14 @@
 import React from 'react';
 
-const Input = ({ label,type,value,onChange,msgErr,max}) => {
+const Input = ({ label,type,value,onChange,msgErr,max,id}) => {
     return (
         <div>
-            <div className="col-span-6 sm:col-span-2 ">
                 <label  
                     className=" block text-sm font-medium ">
                     {label}
                 </label>
                 <input
+                    id={id}
                     type={type}
                     name={label}
                     placeholder={label}
@@ -16,10 +16,10 @@ const Input = ({ label,type,value,onChange,msgErr,max}) => {
                     value={value}
                     onChange={onChange}
                     maxLength={max}
+                    required
                     
                 />
                 <label className='text-sm pl-3 text-rose-700'>{msgErr?msgErr:''}</label>
-            </div>
         </div>
     );
 }

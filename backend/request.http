@@ -4,8 +4,8 @@ Content-Type: application/json
 
  {
     "name":"pepito",
-    "lastname":"pepe",
-    "email":"admiiin@admin.com",
+    "lastname":"asdasd",
+    "email":"pepe@admin.com",
     "password":"admin123",
     "token":"asdasdasij123",
     "phone":"1234567",
@@ -23,11 +23,30 @@ POST http://localhost:5000/api/login HTTP/1.1
 Content-Type: application/json
 
     {
-    "email":"admiiin@admin.com",
-    "password":"admin1234"
+    "email":"pepe@admin.com",
+    "password":"admin123"
 }
 ###
 GET http://localhost:5000/ HTTP/1.1
 Content-Type: application/json
 x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjI4MzI1NjFlOGI5MTVlNWYyMTFlOWEwIiwiZW1haWwiOiJhZG1paWluQGFkbWluLmNvbSIsImlhdCI6MTY1Mjc2MzkwNywiZXhwIjoxNjUyNzcxMTA3fQ.O-1L-6u8mwFmqG2A5X5iQV1U_iETWWgugs87SEbLtls
  
+### 
+POST http://localhost:5000/api/newPatients HTTP/1.1 
+Content-Type: application/json
+
+    {
+        "name":"chuflitosssssss",
+        "ownerEmail":"pepe@admin.com",
+        "ownerName":"pepito",
+        "date":"12/12/12",
+        "symptom":"perrito de prueba",
+        "userId":"6295c1746dacad155ddddf6c"
+        
+}
+###
+GET http://localhost:5000/api/getPatients/629d79996d2eff92b5a7f06f HTTP/1.1
+Content-Type: application/json
+###
+DELETE  http://localhost:5000/api/deletePatient/629d995802fec182d54650d5 HTTP/1.1
+Content-Type: application/json

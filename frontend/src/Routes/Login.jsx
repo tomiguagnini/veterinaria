@@ -1,39 +1,45 @@
 import { useState } from "react"
 import axios from 'axios'
-import Input from "../Components/Input";
+
 
 const URI = 'http://localhost:5000/api';
-
+const HOST = window.location.origin;
 
 export default function Login() {
-  const [email, setEmail]=useState({value:'',validate:false})
-  const [password, setPassword]= useState({value:'',validate:false})
-  const [response, setResponse]= useState('')
-  
-  const OnChange = (e)=>{
-    setEmail({value:e.target.value})
-  }
-  const OnChangePassword = (e)=>{
-    setPassword({value:e.target.value})
-  }
-  
+  const [email, setEmail] = useState({ value: '', validate: false })
+  const [password, setPassword] = useState({ value: '', validate: false })
+  const [response, setResponse] = useState('')
 
-    
-  
+  const OnChange = (e) => {
+    setEmail({ value: e.target.value })
+  }
+  const OnChangePassword = (e) => {
+    setPassword({ value: e.target.value })
+  }
 
-  const OnChangeButton = ()=>{
+
+
+
+
+  const sendCredentials = (e) => {
+    e.preventDefault()
     axios({
       method: 'post',
       url: URI + "/login",
       data: {
-        email:email.value,
-        password:password.value,
+        email: email.value,
+        password: password.value,
       }
     })
     .then(function (response) {
-      setResponse(response.data)
-      if(response.status == 200){
-        window.location.href = URI + '/panel';
+      if (response.status === 200) {
+        const user = {
+          email: response.data.email,
+          id: response.data.id,
+          token: response.data.token,
+        }
+        window.localStorage.setItem("USER", JSON.stringify(user))
+        window.location.href = HOST + '/panel';
       }
       console.log(response.data);
     })
@@ -43,7 +49,7 @@ export default function Login() {
     });
   }
 
-  
+
 
 
   return (
@@ -53,8 +59,12 @@ export default function Login() {
           <div>
             <h2 className="m-2 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
           </div>
-          <form className="mt-8 bg-slate-300 p-6 rounded space-y-6"  method="POST">
-            {response?<label className="text-white text-sm text-center bg-red-600 p-2 rounded-md block ">{response.msg}</label>:''}
+          <form className="mt-8 bg-slate-300 p-6 rounded space-y-6" onSubmit={sendCredentials}>
+            
+            {response ?
+             <label className="text-white text-sm text-center bg-red-600 p-2 rounded-md block ">{response.msg}</label> 
+             : ''}
+
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
@@ -73,7 +83,7 @@ export default function Login() {
                   onChange={OnChange}
                 />
               </div>
-                
+
               <div>
                 <label htmlFor="password" className="sr-only">
                   Password
@@ -94,10 +104,10 @@ export default function Login() {
 
             <div className="flex items-center justify-between">
               <div className="flex items-center text-sm">
-              <a href="/register" className="font-medium text-rose-400 hover:text-rose-300">
+                <a href="/register" className="font-medium text-rose-400 hover:text-rose-300">
                   Create new account
                 </a>
-                
+
               </div>
 
               <div className="text-sm">
@@ -109,9 +119,8 @@ export default function Login() {
 
             <div>
               <button
-                type="button"
+                type="sumbit"
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-rose-700 hover:bg-rose-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                onClick={OnChangeButton}
               >
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3">
 

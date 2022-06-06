@@ -9,11 +9,12 @@ const router = express.Router();
 
 router.post("/register",async (req,res)=>{
     
-    const {name, lastname, email, password, phone} = req.body;
+    const {name, lastname, email, password,} = req.body;
+    
 
     // Validate user input
-    if (!(email && password && name && lastname && phone)) {
-        res.status(400).send("All input is required");
+    if (!(email && password && name && lastname )) {
+        res.status(400).json({msg:"All input is required"});
     }      
     
     // check if user already exist
@@ -33,7 +34,6 @@ router.post("/register",async (req,res)=>{
         lastname,
         email: email.toLowerCase(),
         password:encryptedPassword,
-        phone
     })
 
     // Create token
@@ -46,13 +46,17 @@ router.post("/register",async (req,res)=>{
       );
 
     // save user token
-    newUser.token = token;
+    newUser.token = await token;
         
-    newUser.save()
-    .then(()=> console.log("usuario creado"))
+    await newUser
+    .save()
+    .then(()=> {
+        console.log("usuario creado");
+        res.status(200)
+        .json(newUser);
+    })
     .catch((err)=>console.log(err))
     
-    res.json(newUser);
 })
 
 
@@ -81,7 +85,7 @@ router.post("/login",async (req,res)=>{
             user.token = token;
 
             // user
-            res.status(200).json(user);
+            await res.status(200).json(user);
         }
         res.status(400).json({msg:"Invalid Credentials"});
     }catch(err){
