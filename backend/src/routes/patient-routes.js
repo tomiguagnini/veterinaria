@@ -5,15 +5,15 @@ import User from "../models/user.js"
 const router = express.Router();
 
 
-router.post('/newPatients', async (req, res, next) => {
+router.post('/newPatients/:id', async (req, res) => {
     const body = req.body;
+    const userId = req.params.id;
+    
 
-
-
-    if (body.userId) {
+    if (userId) {
 
         try {
-            const user = await User.findById(body.userId)
+            const user = await User.findById(userId)
 
 
             const patient = Patient({
@@ -30,6 +30,7 @@ router.post('/newPatients', async (req, res, next) => {
             user.patients = user.patients.concat(savedPatient._id)
             await user.save()
 
+            console.log('new patient add')
             res.json(savedPatient)
         } catch (error) {
             res.status(404).send('usuario no encontrado')
