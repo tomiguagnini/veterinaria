@@ -1,26 +1,29 @@
 import React from 'react';
-import Input from '../Components/Input';
 import ItemPaciente from '../Components/ItemPaciente';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import FormPatient from '../Components/FormPatient';
 
 
 const URI = 'http://localhost:5000/api';
 
 
 const Dashboard = () => {
-    const [namePatient, setNamePatient] = useState([]);
-    const [ownerName, setOwnerName] = useState([]);
-    const [ownerEmail, setOwnerEmail] = useState([]);
-    const [date, setDate] = useState([]);
-    const [symptom, setSymptom] = useState([]);
+
     const [patients, setPatients] = useState([]);
+    const [newPatient, setNewPatient] = useState([])
     const [user, setUser] = useState([]);
 
 
+    const verficUser = ()=>{
+        return user.token?true:false;
+           
+    }
+
     const config = {
+
         headers: {
-            "x-access-token": user.token,
+            "x-access-token":user ? user.token:"",
             "Content-Type": "application/json"
         }
     }
@@ -29,27 +32,16 @@ const Dashboard = () => {
 
     const addPatients = (event) => {
         event.preventDefault()
-
-
+        console.log(newPatient)
+        
         axios({
             method: 'post',
-            url: URI + "/newPatients",
-            data: {
-                name: namePatient,
-                ownerName,
-                ownerEmail,
-                date,
-                symptom,
-                userId: user.id
-            },
-            headers: {
-                "x-access-token": user.token,
-                "Content-Type": "application/json"
-            }
+            url: URI + "/newPatients/"+ user.id,
+            data: newPatient,
+            config
         })
             .then(response => {
                 if (response.status === 200){
-                    clearForm()
                     getPatients()
 
                 }
@@ -59,60 +51,37 @@ const Dashboard = () => {
 
     }
 
-    const clearForm = () => {
-        setNamePatient('')
-        setOwnerName('')
-        setOwnerEmail('')
-        setDate('')
-        setSymptom('')
+    
+
+    const setUserLocal = async ()=>{
+        const usr = await JSON.parse(window.localStorage.getItem("USER"))
+        await setUser(usr)
+        return usr
     }
 
-    const handlePatietnsChange = (event) => {
-        const value = event.target.value
-        switch (event.target.id) {
-            case '1':
-                setNamePatient(value)
-                break;
-            case '2':
-                setOwnerName(value)
-                break;
-            case '3':
-                setOwnerEmail(value)
-                break;
-            case '4':
-                setDate(value)
-                break;
-            case '5':
-                setSymptom(value)
-                break;
-        }
+    
 
-    }
+    //getPatients()
+    setTimeout(()=>getPatients(),1000)
 
     useEffect(() => {
-        const setUserLocal = async()=>{
-            const usr = await JSON.parse(window.localStorage.getItem("USER"))
-            setUser(usr)
-
-        }
         setUserLocal()
+        
+
+        
+        return () =>{
+            
+        }
         
     }, []);
     
-    useEffect(() => {
-        getPatients()
-    }, [user]);
+    
+    
 
-
-
-    const getPatients = () => {
-        if (user) {
-                axios.get(URI + '/getPatients/' + user.id, config)
-                .then(res => setPatients(res.data))
-
-        } else {
-            window.location = '/login'
-        }
+    const getPatients =  () => {
+         axios.get(URI + '/getPatients/' + user.id, config)
+        .then(res => setPatients(res.data))
+       
     }
     const onClickDelete = async (id) => {
         await axios.delete(URI + '/deletePatient/' + id, config)
@@ -145,17 +114,9 @@ const Dashboard = () => {
 
                 <div className='xl:col-span-1 '>
                     <h3 className='text-center text-xl p-5'>Administrador de Pacientes</h3>
-                    <p className='text-center text-sm p-2'>anade tus pacientes y administralos</p>
+                    <p className='text-center text-sm p-2'>Anade tus pacientes y administralos</p>
+                    <FormPatient submit={addPatients} setData={setNewPatient}></FormPatient>
 
-                    <form className='bg-slate-400 shadow-2xl p-5 rounded-md' onSubmit={addPatients}>
-                        <Input label='Nombre de la mascota'   value={namePatient} onChange={handlePatietnsChange}> </Input>
-                        <Input label='Nombred del propietario'value={ownerName}   onChange={handlePatietnsChange}> </Input>
-                        <Input label='Email del propietario'  value={ownerEmail}  onChange={handlePatietnsChange}> </Input>
-                        <Input label='Fecha Alta' type='date' value={date}        onChange={handlePatietnsChange}> </Input>
-                        <Input label='Sintomas'               value={symptom}     onChange={handlePatietnsChange}> </Input>
-                        <button className='bg-rose-400 p-2 rounded w-full' type='submit'  >Enviar</button>
-
-                    </form>
                 </div>
 
                 <div className='xl:col-span-2 '>
