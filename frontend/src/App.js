@@ -4,6 +4,7 @@ import Home from "./Routes/Home";
 import Login from "./Routes/Login";
 import Dashboard from "./Routes/Dashboard";
 import Register from "./Routes/Register";
+import Edit from "./Routes/Edit";
 function App() {
   return (
       <Router>
@@ -12,6 +13,7 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element ={<Register/>}/>
           <Route path="/dashboard" element={<Dashboard/>}/>
+          <Route path="/edit/:id/:idUser" element={<Edit/>}/>
         </Routes>
           
         

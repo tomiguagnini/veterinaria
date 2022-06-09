@@ -3,6 +3,7 @@ import ItemPaciente from '../Components/ItemPaciente';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import FormPatient from '../Components/FormPatient';
+import servicePatients from '../services/servicePatients';
 
 
 const URI = 'http://localhost:5000/api';
@@ -15,80 +16,29 @@ const Dashboard = () => {
     const [user, setUser] = useState([]);
 
 
-    const verficUser = ()=>{
-        return user.token?true:false;
-           
-    }
-
-    const config = {
-
-        headers: {
-            "x-access-token":user ? user.token:"",
-            "Content-Type": "application/json"
-        }
-    }
-
-
-
-    const addPatients = (event) => {
-        event.preventDefault()
-        console.log(newPatient)
-        
-        axios({
-            method: 'post',
-            url: URI + "/newPatients/"+ user.id,
-            data: newPatient,
-            config
-        })
-            .then(response => {
-                if (response.status === 200){
-                    getPatients()
-
-                }
-
-                
-            })
-
-    }
-
+   
     
-
-    const setUserLocal = async ()=>{
-        const usr = await JSON.parse(window.localStorage.getItem("USER"))
-        await setUser(usr)
-        return usr
-    }
-
-    
-
-    //getPatients()
-    setTimeout(()=>getPatients(),1000)
-
     useEffect(() => {
-        setUserLocal()
-        
-
-        
+       servicePatients.getPatients(setPatients);
         return () =>{
             
         }
         
     }, []);
-    
-    
-    
 
-    const getPatients =  () => {
-         axios.get(URI + '/getPatients/' + user.id, config)
-        .then(res => setPatients(res.data))
-       
+
+    const handleSubmitPatient = (event) => {
+        event.preventDefault()
+        servicePatients.addPatietns(newPatient)
+        
     }
     const onClickDelete = async (id) => {
-        await axios.delete(URI + '/deletePatient/' + id, config)
-        getPatients()
-
-
+       // await axios.delete(URI + '/deletePatient/' + id, config)
+        //getPatients()
     }
+    const onClickEdit = (id)=>{
+        window.location.href ='/edit/'+ id + '/' + user.id
+    } 
     const closeSession = ()=>{
         window.localStorage.removeItem('USER');
         window.location.href = '/login'
@@ -115,7 +65,7 @@ const Dashboard = () => {
                 <div className='xl:col-span-1 '>
                     <h3 className='text-center text-xl p-5'>Administrador de Pacientes</h3>
                     <p className='text-center text-sm p-2'>Anade tus pacientes y administralos</p>
-                    <FormPatient submit={addPatients} setData={setNewPatient}></FormPatient>
+                    <FormPatient submit={handleSubmitPatient} setData={setNewPatient}></FormPatient>
 
                 </div>
 
@@ -135,6 +85,7 @@ const Dashboard = () => {
                                         date={e.date}
                                         symptom={e.symptom}
                                         onClickDelete={onClickDelete}
+                                        onClickEdit={onClickEdit}
                                     ></ItemPaciente>
                                 )
                             })

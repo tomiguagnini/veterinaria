@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const ItemPaciente = ({id,name,ownerName,ownerEmail,date,symptom,onClickDelete}) => {
+const ItemPaciente = ({id,name,ownerName,ownerEmail,date,symptom,onClickDelete,onClickEdit}) => {
 
     return (
         <div>
@@ -27,7 +27,7 @@ const ItemPaciente = ({id,name,ownerName,ownerEmail,date,symptom,onClickDelete})
                         <p className='mx-1'>{symptom}</p>               </div>
                        
                         <div className='flex justify-between'>
-                            <button className=' bg-amber-300 p-2 rounded' >Editar</button>
+                            <button className=' bg-amber-300 p-2 rounded'onClick={()=>onClickEdit(id)} >Editar</button>
                             <button className=' bg-red-700 p-2 rounded' onClick={()=>onClickDelete(id)} >Eliminar</button>
                             
 

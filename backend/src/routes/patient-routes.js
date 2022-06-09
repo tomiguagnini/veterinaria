@@ -76,6 +76,30 @@ router.delete('/deletePatient/:id', async (req, res) => {
 
 })
 
+router.put('/editPatient/:id', async (req,res)=>{
+    const {id} = req.params;
+    const {name,ownerEmail,ownerName,date,symptom} = req.body
+
+    if (id && name && ownerEmail && ownerName && date && symptom){
+        try{
+            const patient = await Patient.findById(id)
+            patient.name = name;
+            patient.ownerName=ownerName;
+            patient.ownerEmail= ownerEmail;
+            patient.date = date;
+            patient.symptom = symptom;
+            
+            await patient.save()
+
+            res.status(200).send('update')
+        }catch (err){
+            res.status(404).send('cant update')
+        }
+        
+    }
+
+})
+
 
 
 

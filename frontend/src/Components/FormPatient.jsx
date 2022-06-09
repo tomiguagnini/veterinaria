@@ -43,13 +43,7 @@ const FormPatient = ({submit,setData}) => {
     }
     
     
-    const clearForm = () => {
-        setName('')
-        setOwnerName('')
-        setOwnerEmail('')
-        setDate('')
-        setSymptom('')
-    }
+   
 
     return (
         <>
