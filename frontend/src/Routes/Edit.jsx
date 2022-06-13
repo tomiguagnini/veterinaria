@@ -1,13 +1,22 @@
 import React from 'react';
 import FormPatient from '../Components/FormPatient';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import services from '../services/servicePatients';
 import { useParams } from 'react-router-dom';
 
 
 const Edit = () => {
     const [newPatient, setnewPatient] = useState('');
+    const [patient, setPatient] = useState('')
     const {id} = useParams()
+
+    useEffect(() => {
+        services.getPatient(setPatient,(a)=>a,id)
+        
+        return () => {
+            
+        };
+    }, []);
 
     const handleSubmit = (e)=>{
         e.preventDefault()
@@ -23,8 +32,10 @@ const Edit = () => {
             <div className=' '>
                 <h2 className='text-center text-2xl mt-8'>Editar...</h2>
                 <div className='m-3 sm:m-9 lg:mx-32 xl:mx-96 2xl:px-32'>
-                    <FormPatient submit={handleSubmit} setData={setnewPatient} ></FormPatient>
-                
+                    {patient ?
+                    <FormPatient submit={handleSubmit} setData={setnewPatient} values={patient} ></FormPatient>
+                    :''
+                    }
                 </div>
                 
             </div>   

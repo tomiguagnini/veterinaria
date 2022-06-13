@@ -39,7 +39,7 @@ router.post('/newPatients/:id', async (req, res) => {
     }
 
 })
-router.get('/getPatients/:id', async (req, res) => {
+router.get('/getManyPatients/:id', async (req, res) => {
     const { id } = req.params;
     if (id) {
         try {
@@ -54,6 +54,25 @@ router.get('/getPatients/:id', async (req, res) => {
 
 
 })
+
+router.get('/getPatient/:id', async (req, res) => {
+    const { id } = req.params;
+    if (id) {
+        try {
+            const patient = await Patient.findById( id )
+            res.json(patient)
+
+        } catch (error) {
+            res.status(404).send('Paciente no encontrado')
+        }
+
+    }
+
+
+})
+
+
+
 
 router.delete('/deletePatient/:id', async (req, res) => {
     const { id } = req.params;

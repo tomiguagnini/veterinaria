@@ -1,43 +1,52 @@
 import React from 'react';
 import ItemPaciente from '../Components/ItemPaciente';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import FormPatient from '../Components/FormPatient';
 import servicePatients from '../services/servicePatients';
 
 
-const URI = 'http://localhost:5000/api';
 
 
 const Dashboard = () => {
-
+    
     const [patients, setPatients] = useState([]);
     const [newPatient, setNewPatient] = useState([])
-    const [user, setUser] = useState([]);
-
-
-   
+    
     
     useEffect(() => {
-       servicePatients.getPatients(setPatients);
+       servicePatients.getManyPatients(setPatients,handleGetError);
+       console.log('a')
         return () =>{
             
         }
         
     }, []);
+    useEffect(() => {
+        console.log('b')
+        return () => {
+            
+        };
+    }, [patients]);
 
+    const handleGetError = (res) =>{
+        if(res.status === 401){
+            closeSession()
+        }
+    }
 
     const handleSubmitPatient = (event) => {
         event.preventDefault()
         servicePatients.addPatietns(newPatient)
+        servicePatients.getManyPatients(setPatients,handleGetError)
         
     }
-    const onClickDelete = async (id) => {
-       // await axios.delete(URI + '/deletePatient/' + id, config)
-        //getPatients()
+    const onClickDelete = (id) => {
+       servicePatients.deletePatient(id)
+       servicePatients.getManyPatients(setPatients,handleGetError)
+
     }
     const onClickEdit = (id)=>{
-        window.location.href ='/edit/'+ id + '/' + user.id
+        window.location.href ='/edit/'+ id;
     } 
     const closeSession = ()=>{
         window.localStorage.removeItem('USER');

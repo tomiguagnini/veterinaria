@@ -16,10 +16,16 @@ const editPatient = (id, data)=>{
     .then(response=>console.log(response))
 }
 
-const getPatients =  (setPatients) => {
-    axios.get(baseUrl + '/getPatients/' + user.id, config)
-    .then(res => setPatients(res.data))
-    .catch(err => console.log(err.response.status) === 401 ? '':'')
+const getManyPatients =  (set,handleError) => {
+    axios.get(baseUrl + '/getManyPatients/' + user.id, config)
+    .then(res => set(res.data))
+    .catch(err => handleError(err.response))
+   
+}
+const getPatient =  (setPatient,handleError,id) => {
+    axios.get(baseUrl + '/getPatient/' + id, config)
+    .then(res => setPatient(res.data))
+    .catch(err => handleError(err.response))
    
 }
 
@@ -28,7 +34,13 @@ const addPatietns = (data) =>{
     .then(response => console.log(response.data))
 }
 
+const deletePatient = (id) => {
+    axios.delete(baseUrl + '/deletePatient/' + id, config)
+    .then(res=> res)
+    .catch(err => err.response)
+ }
 
 
 
-export default {editPatient, getPatients,addPatietns}
+
+export default {editPatient, getManyPatients,addPatietns,getPatient,deletePatient}

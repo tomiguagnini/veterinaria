@@ -1,16 +1,23 @@
 import React from 'react';
 import Input from './Input';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
-const FormPatient = ({submit,setData}) => {
+const FormPatient = ({submit,setData,values=''}) => {
 
-    const [name, setName] = useState([]);
-    const [ownerName, setOwnerName] = useState([]);
-    const [ownerEmail, setOwnerEmail] = useState([]);
-    const [date, setDate] = useState([]);
-    const [symptom, setSymptom] = useState([]);
+    const [name, setName] = useState(values.name);
+    const [ownerName, setOwnerName] = useState(values.ownerName);
+    const [ownerEmail, setOwnerEmail] = useState(values.ownerEmail);
+    const [date, setDate] = useState(values.date);
+    const [symptom, setSymptom] = useState(values.symptom);
+
     
+    useEffect(() => {
+        return () => {
+            
+        };
+    }, []);
+  
 
     const handlePatietnsChange = (event) => {
         const value = event.target.value
