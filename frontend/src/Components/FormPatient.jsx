@@ -13,10 +13,18 @@ const FormPatient = ({submit,setData,values=''}) => {
 
     
     useEffect(() => {
+        const newPatient = {
+            name,
+            ownerName,
+            ownerEmail,
+            date,
+            symptom
+        }
+        setData(newPatient)
         return () => {
             
         };
-    }, []);
+    }, [name,ownerEmail,ownerName,date,symptom]);
   
 
     const handlePatietnsChange = (event) => {
@@ -39,29 +47,22 @@ const FormPatient = ({submit,setData,values=''}) => {
                 break;
         }
         
-        const newPatient = {
-            name,
-            ownerName,
-            ownerEmail,
-            date,
-            symptom
-        }
-        setData(newPatient)
+        
     }
     
-    
+ 
    
 
     return (
         <>
-            <form className='bg-slate-400 shadow-2xl p-5 rounded-md' onSubmit={submit}>
+            <form className='bg-slate-400 shadow-2xl p-5 rounded-md' onSubmit={submit} >
                 
                 <Input id={1}label='Nombre de la mascota' value={name} onChange={handlePatietnsChange}> </Input>
                 <Input id={2}label='Nombred del propietario' value={ownerName} onChange={handlePatietnsChange}> </Input>
                 <Input id={3}label='Email del propietario' value={ownerEmail} onChange={handlePatietnsChange}> </Input>
                 <Input id={4}label='Fecha Alta' type='date' value={date} onChange={handlePatietnsChange}> </Input>
                 <Input id={5}label='Sintomas' value={symptom} onChange={handlePatietnsChange}> </Input>
-                <button className='bg-rose-400 p-2 rounded w-full' type='submit'  >Enviar</button>
+                <button className='bg-rose-400 p-2 rounded w-full' type='submit'>Enviar</button>
 
             </form>
         </>

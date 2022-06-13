@@ -16,6 +16,7 @@ app.use("/api",headers,userRoutes);
 app.use("/api",auth,headers,patientsRoutes);
 
 
+
 app.get('/',auth,(req,res)=> res.send("Servidor veterinaria"))
 
 

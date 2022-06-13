@@ -12,30 +12,36 @@ const config = {
 }
 
 const editPatient = (id, data)=>{
-    axios.put(baseUrl + '/editPatient/' + id, data, config)
-    .then(response=>console.log(response))
+    return axios
+    .put(baseUrl + '/editPatient/' + id, data, config)
+    .then(response=> response)
 }
 
 const getManyPatients =  (set,handleError) => {
-    axios.get(baseUrl + '/getManyPatients/' + user.id, config)
+    axios
+    .get(baseUrl + '/getManyPatients/' + user.id, config)
     .then(res => set(res.data))
     .catch(err => handleError(err.response))
    
 }
 const getPatient =  (setPatient,handleError,id) => {
-    axios.get(baseUrl + '/getPatient/' + id, config)
+    axios
+    .get(baseUrl + '/getPatient/' + id, config)
     .then(res => setPatient(res.data))
     .catch(err => handleError(err.response))
    
 }
 
 const addPatietns = (data) =>{
-    axios.post(baseUrl + '/newPatients/' + user.id, data, config)
-    .then(response => console.log(response.data))
+    return axios
+    .post(baseUrl + '/newPatients/' + user.id, data, config)
+    .then(response => response)
+    .catch(err => err.response )
 }
 
 const deletePatient = (id) => {
-    axios.delete(baseUrl + '/deletePatient/' + id, config)
+    return axios
+    .delete(baseUrl + '/deletePatient/' + id, config)
     .then(res=> res)
     .catch(err => err.response)
  }

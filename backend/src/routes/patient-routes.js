@@ -30,7 +30,6 @@ router.post('/newPatients/:id', async (req, res) => {
             user.patients = user.patients.concat(savedPatient._id)
             await user.save()
 
-            console.log('new patient add')
             res.json(savedPatient)
         } catch (error) {
             res.status(404).send('usuario no encontrado')

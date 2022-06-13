@@ -18,9 +18,13 @@ const Edit = () => {
         };
     }, []);
 
-    const handleSubmit = (e)=>{
+    const sendForm = async (e)=>{
         e.preventDefault()
-        services.editPatient(id,newPatient)
+        console.log(newPatient)
+        const response = await services.editPatient(id,newPatient)
+        if ( response.status === 200 ){
+            window.location.href = '/dashboard'
+        }
     }
 
 
@@ -33,7 +37,7 @@ const Edit = () => {
                 <h2 className='text-center text-2xl mt-8'>Editar...</h2>
                 <div className='m-3 sm:m-9 lg:mx-32 xl:mx-96 2xl:px-32'>
                     {patient ?
-                    <FormPatient submit={handleSubmit} setData={setnewPatient} values={patient} ></FormPatient>
+                    <FormPatient submit={sendForm} setData={setnewPatient} values={patient} ></FormPatient>
                     :''
                     }
                 </div>

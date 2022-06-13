@@ -1,4 +1,5 @@
 import React from 'react';
+import foto from '../assets/perro.png'
 
 
 const Home = () => {
@@ -18,8 +19,8 @@ const Home = () => {
                 
             </nav>
             <div className='h-96 flex flex-col justify-center items-center'>
-                <h1 className='text-rose-700 text-6xl font-extra-bold text-center text-slate-900 flex'>Veterinaria</h1>
-
+                <h1 className='text-6xl font-extra-bold text-center text-slate-900 '>Veterinaria</h1>
+               
             </div>
 
         </div>

@@ -15,18 +15,12 @@ const Dashboard = () => {
     
     useEffect(() => {
        servicePatients.getManyPatients(setPatients,handleGetError);
-       console.log('a')
         return () =>{
             
         }
         
     }, []);
-    useEffect(() => {
-        console.log('b')
-        return () => {
-            
-        };
-    }, [patients]);
+   
 
     const handleGetError = (res) =>{
         if(res.status === 401){
@@ -34,15 +28,20 @@ const Dashboard = () => {
         }
     }
 
-    const handleSubmitPatient = (event) => {
+    const handleSubmitPatient = async(event) => {
         event.preventDefault()
-        servicePatients.addPatietns(newPatient)
-        servicePatients.getManyPatients(setPatients,handleGetError)
+        const response = await servicePatients.addPatietns(newPatient)
+        if (response.status === 200)
+            console.log(response)
+            servicePatients.getManyPatients(setPatients,handleGetError)
         
     }
-    const onClickDelete = (id) => {
-       servicePatients.deletePatient(id)
-       servicePatients.getManyPatients(setPatients,handleGetError)
+    const onClickDelete = async(id) => {
+       const response  = await servicePatients.deletePatient(id)
+       if (response.status === 200){
+           servicePatients.getManyPatients(setPatients,handleGetError)
+
+       }
 
     }
     const onClickEdit = (id)=>{
@@ -83,7 +82,8 @@ const Dashboard = () => {
                     <p className='text-center text-sm p-2'> Administra tus pacientes y citas </p>
                     <div className=' bg-slate-300 shadow-2xl rounded'>
                         {
-                            patients.map((e) => {
+                            patients
+                            .map((e) => {
 
                                 return (
                                     <ItemPaciente
@@ -97,7 +97,7 @@ const Dashboard = () => {
                                         onClickEdit={onClickEdit}
                                     ></ItemPaciente>
                                 )
-                            })
+                            }).reverse()
 
                         }
 

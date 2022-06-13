@@ -5,6 +5,7 @@ import Login from "./Routes/Login";
 import Dashboard from "./Routes/Dashboard";
 import Register from "./Routes/Register";
 import Edit from "./Routes/Edit";
+import PageNotFound from "./Routes/PageNotFound"
 function App() {
   return (
       <Router>
@@ -14,6 +15,7 @@ function App() {
           <Route path="/register" element ={<Register/>}/>
           <Route path="/dashboard" element={<Dashboard/>}/>
           <Route path="/edit/:id" element={<Edit/>}/>
+          <Route path="/*" element={<PageNotFound/>}/>
         </Routes>
           
         
