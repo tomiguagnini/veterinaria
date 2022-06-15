@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl= 'http://localhost:5000/api'
+const baseUrl= 'http://192.168.0.40:5000/api'
 
 const user = JSON.parse(window.localStorage.getItem("USER"))
 

@@ -3,6 +3,7 @@ import Input from './Input';
 import { useState, useEffect } from 'react';
 
 
+
 const FormPatient = ({submit,setData,values=''}) => {
 
     const [name, setName] = useState(values.name);
@@ -50,7 +51,13 @@ const FormPatient = ({submit,setData,values=''}) => {
         
     }
     
- 
+    const handleClick = ()=>{
+        setName('')
+        setOwnerEmail('')
+        setDate('')
+        setOwnerName('')
+        setSymptom('')
+    }
    
 
     return (
@@ -63,6 +70,7 @@ const FormPatient = ({submit,setData,values=''}) => {
                 <Input id={4}label='Fecha Alta' type='date' value={date} onChange={handlePatietnsChange}> </Input>
                 <Input id={5}label='Sintomas' value={symptom} onChange={handlePatietnsChange}> </Input>
                 <button className='bg-rose-400 p-2 rounded w-full' type='submit'>Enviar</button>
+                <button className='clear'onClick={handleClick}></button>
 
             </form>
         </>

@@ -12,7 +12,7 @@ const Input = ({ label,type,value,onChange,msgErr,max,id}) => {
                     type={type}
                     name={label}
                     placeholder={label}
-                    className="bg-white w-full  h-8 block  sm:text-sm border focus:outline-none focus:ring-rose-400 focus:border-rose-400 rounded"
+                    className="bg-white w-full  h-10 block  sm:text-sm border focus:outline-none focus:ring-rose-400 focus:border-rose-400 rounded"
                     value={value}
                     onChange={onChange}
                     maxLength={max}

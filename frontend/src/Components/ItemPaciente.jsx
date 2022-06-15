@@ -5,7 +5,7 @@ const ItemPaciente = ({id,name,ownerName,ownerEmail,date,symptom,onClickDelete,o
 
     return (
         <div>
-            <div className=' bg-slate-400 rounded-md p-5 mb-2'>
+            <div className=' bg-slate-400 rounded-md p-5 mb-2 shadow-xl'>
                 <div className='flex'>
                         <p className=' font-extrabold'>Nombre:</p>
                         <p className='mx-1'>{name}</p>

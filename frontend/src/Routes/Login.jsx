@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useEffect } from "react";
 
 
-const URI = 'http://localhost:5000/api';
+const URI = 'http://192.168.0.40:5000/api';
 const HOST = window.location.origin;
 
 export default function Login() {
