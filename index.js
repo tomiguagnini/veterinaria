@@ -3,7 +3,7 @@ import "./src/config/database.js"
 
 const { API_PORT } = process.env;
 
-const port = process.env.PORT || API_PORT;
+const port = API_PORT;
 
 
 
