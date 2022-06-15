@@ -70,3 +70,15 @@ x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjI5NWMxNzQ
 GET http://localhost:5000/api/getPatient/629dbb8535a2a9ebf9a936f0 HTTP/1.1
 Content-Type: application/json
 x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjI5NWMxNzQ2ZGFjYWQxNTVkZGRkZjZjIiwiZW1haWwiOiJwZXBlQGFkbWluLmNvbSIsImlhdCI6MTY1NDgxMDA4OSwiZXhwIjoxNjU0ODE3Mjg5fQ.2VTm4THsJR0LW-2RaGDOtw6xjHLt1tvMRdP-h_WaGDA
+
+
+
+
+###
+POST https://veterinaria-production.up.railway.app/api/login HTTP/1.1
+Content-Type: application/json
+
+    {
+    "email":"pepe@admin.com",
+    "password":"admin123"
+}
